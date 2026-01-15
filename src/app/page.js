@@ -38,6 +38,7 @@ export default function Home() {
 
   return (
     <div className="bg-blue-500 w-full h-screen flex items-center justify-center px-5">
+      <div className="w-full h-25 bg-gray-900/25"></div>
       <div className="w-full h-80 bg-gray-100 rounded-sm lg:w-125 flex flex-col items-center justify-center gap-5 p-5 shadow-lg">
 
         <span className="text-black font-bold text-2xl">
@@ -54,7 +55,7 @@ export default function Home() {
 
         <input
           type="text"
-          placeholder="Enter Register Phone No"
+          placeholder="Register Phone No"
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
           className="border border-gray-950 px-2 text-black placeholder-gray-800"
