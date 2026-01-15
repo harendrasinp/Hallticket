@@ -49,7 +49,7 @@ export default function Home() {
           placeholder="Enter Full Name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value.toUpperCase())}
-          className="border border-gray-950 px-2"
+          className="border border-gray-950 px-2 text-black placeholder-gray-800"
         />
 
         <input
@@ -57,7 +57,7 @@ export default function Home() {
           placeholder="Enter Register Phone No"
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
-          className="border border-gray-950 px-2"
+          className="border border-gray-950 px-2 text-black placeholder-gray-800"
         />
 
         <button
