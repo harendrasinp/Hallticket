@@ -39,9 +39,9 @@ export default function Home() {
   return (
     <div className="bg-blue-500 w-full h-screen flex flex-col items-center">
       <div className="w-full h-25 bg-gray-900/25 flex items-center justify-center pt-5">
-       <div><img src="/logo.png" alt="Logo" className="w-10 h-10 mr-2" /></div>
+       <div><img src="/logo.png" alt="Logo" className="w-16 h-12 mr-2" /></div>
         <div>
-          <div className="text-black text-2xl">P.P SAVANI VIDHYAMANDIR</div>
+          <div className="text-black text-xl">P.P SAVANI VIDHYAMANDIR</div>
           <div className="text-[0.5rem] text-black">AT POST KATHGADH VYARA,DIST.TAPI</div>
         </div>
       </div>
