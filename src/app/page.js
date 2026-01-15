@@ -41,8 +41,8 @@ export default function Home() {
       <div className="w-full h-25 bg-gray-900/25 flex items-center justify-center pt-5">
        <div><img src="/logo.png" alt="Logo" className="w-20 h-16 mr-2" /></div>
         <div>
-          <div className="text-black text-xl">P.P SAVANI VIDHYAMANDIR</div>
-          <div className="text-[0.5rem] text-black">AT POST KATHGADH VYARA,DIST.TAPI</div>
+          <div className="text-white text-xl">P.P SAVANI VIDHYAMANDIR</div>
+          <div className="text-[0.5rem] text-white">AT POST KATHGADH VYARA,DIST.TAPI</div>
         </div>
       </div>
       <div className="w-90 h-80 bg-gray-100 rounded-sm lg:w-125 flex flex-col items-center justify-center gap-5 p-5 shadow-lg mt-10">
