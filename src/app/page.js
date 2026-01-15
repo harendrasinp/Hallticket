@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <div className="bg-blue-500 w-full h-screen flex flex-col items-center">
       <div className="w-full h-25 bg-gray-900/25 flex flex-col items-center justify-center pt-5">
-        <div className="text-black">P.P SAVANI VIDHYAMANDIR</div>
+        <div className="text-black text-2xl">P.P SAVANI VIDHYAMANDIR</div>
         <div className="text-[0.5rem] text-black">AT POST KATHGADH VYARA,DIST.TAPI</div>
       </div>
       <div className="w-90 h-80 bg-gray-100 rounded-sm lg:w-125 flex flex-col items-center justify-center gap-5 p-5 shadow-lg mt-10">
@@ -58,7 +58,7 @@ export default function Home() {
 
         <input
           type="text"
-          placeholder="Register Phone No"
+          placeholder="Enter Register Phone No"
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
           className="w-65 border border-gray-950 px-2 text-black placeholder-gray-800"
