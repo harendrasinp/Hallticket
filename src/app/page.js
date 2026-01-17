@@ -5,7 +5,6 @@ import axios from "axios";
 export default function Home() {
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [pdfUrl, setPdfUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   const generateHallTicket = async () => {
@@ -19,16 +18,17 @@ export default function Home() {
 
       const res = await axios.post(
         "https://hallticketbackend.onrender.com/api/students/generate-hallticket",
-        { fullName, mobile }
+        { fullName, mobile },
+        { responseType: "blob" } // 🔑 important for PDF
       );
 
-      setPdfUrl(
-        `https://hallticketbackend.onrender.com${res.data.pdfUrl}`
-      );
+      // PDF Blob se turant open
+      const file = new Blob([res.data], { type: "application/pdf" });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL); // PDF browser me open hoga
+
     } catch (error) {
-      alert(
-        error.response?.data?.message || "Server not responding"
-      );
+      alert(error.response?.data?.message || "Server not responding");
     } finally {
       setLoading(false);
     }
@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="bg-blue-500 w-full h-screen flex flex-col items-center">
-      
+
       {/* HEADER */}
       <div className="w-full h-25 bg-gray-900/25 flex items-center justify-center pt-5">
         <div>
@@ -54,7 +54,6 @@ export default function Home() {
 
       {/* FORM BOX */}
       <div className="w-90 h-80 bg-gray-100 rounded-sm lg:w-125 flex flex-col items-center justify-center gap-5 p-5 shadow-lg mt-10">
-
         <span className="text-black font-bold text-2xl">
           STUDENT DETAIL
         </span>
@@ -82,40 +81,11 @@ export default function Home() {
         >
           {loading ? "Generating..." : "Generate Hall Ticket"}
         </button>
-
-        {pdfUrl && (
-          <div className="flex gap-4">
-            <a
-              href={pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              View PDF
-            </a>
-
-            <a
-              href={pdfUrl}
-              download
-              className="text-green-600 underline"
-            >
-              Download
-            </a>
-
-            <button
-              onClick={() => window.open(pdfUrl).print()}
-              className="text-red-600 underline"
-            >
-              Print
-            </button>
-          </div>
-        )}
       </div>
 
       {/* HELP MESSAGE (OUTSIDE FORM BOX) */}
       <p className="mt-4 text-sm text-white text-center px-4">
-        In case of any issue while generating the hall ticket, please contact the provided helpline number for assistance.
-        9638611000
+        In case of any issue while generating the hall ticket, please contact the provided helpline number for assistance: 9638611000
       </p>
 
     </div>
