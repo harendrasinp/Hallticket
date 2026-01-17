@@ -115,6 +115,7 @@ export default function Home() {
       {/* HELP MESSAGE (OUTSIDE FORM BOX) */}
       <p className="mt-4 text-sm text-white text-center px-4">
         In case of any issue while generating the hall ticket, please contact the provided helpline number for assistance.
+        9638611000
       </p>
 
     </div>
