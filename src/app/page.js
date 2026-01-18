@@ -123,7 +123,7 @@ export default function Home() {
       </p>
       <p className="mt-2 text-sm text-white text-center px-4">
         જો સંપૂર્ણ નામ દાખલ કરવા છતાં હોલ ટિકિટ જનરેટ ન થાય, તો કૃપા કરીને નીચે આપેલ વિકલ્પોમાંથી કોઈ એક રીતથી નામ દાખલ કરીને ફરી પ્રયાસ કરો:
-        <div className="flex flex-col justify-center text-justify">
+        <div className="flex flex-col items-center">
           <div>1.HAREN</div>
           <div>2.HAREN PARMAR</div>
           <div>3.PARMAR HAREN</div>
