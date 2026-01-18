@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="bg-blue-500 w-full h-screen flex flex-col items-center">
-      
+
       {/* HEADER */}
       <div className="w-full h-25 bg-gray-900/25 flex items-center justify-center pt-5">
         <div>
@@ -117,15 +117,17 @@ export default function Home() {
         In case of any issue while generating the hall ticket, please contact the provided helpline number for assistance.
         9638611000
       </p>
-      <p className="mt-4 text-sm text-white text-center px-4">
+      <p className="mt-2 text-sm text-white text-center px-4">
         હોલ ટિકિટ જનરેટ કરતી વખતે કોઈપણ પ્રકારની મુશ્કેલી અથવા ત્રુટિ થાય તો કૃપા કરીને નીચે આપેલ હેલ્પલાઇન નંબર પર સંપર્ક કરી સહાય પ્રાપ્ત કરો.
         હેલ્પલાઇન નંબર: 9638611000
       </p>
-      <p className="mt-4 text-sm text-white text-center px-4">
-       જો સંપૂર્ણ નામ દાખલ કરવા છતાં હોલ ટિકિટ જનરેટ ન થાય, તો કૃપા કરીને નીચે આપેલ વિકલ્પોમાંથી કોઈ એક રીતથી નામ દાખલ કરીને ફરી પ્રયાસ કરો:
-       <div>1.HAREN</div>
-       <div>2.HAREN PARMAR</div>
-       <div>3.PARMAR HAREN</div>
+      <p className="mt-2 text-sm text-white text-center px-4">
+        જો સંપૂર્ણ નામ દાખલ કરવા છતાં હોલ ટિકિટ જનરેટ ન થાય, તો કૃપા કરીને નીચે આપેલ વિકલ્પોમાંથી કોઈ એક રીતથી નામ દાખલ કરીને ફરી પ્રયાસ કરો:
+        <div className="flex flex-col justify-center items-start">
+          <div>1.HAREN</div>
+          <div>2.HAREN PARMAR</div>
+          <div>3.PARMAR HAREN</div>
+        </div>
       </p>
 
     </div>
