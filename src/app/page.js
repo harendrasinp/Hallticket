@@ -117,6 +117,10 @@ export default function Home() {
         In case of any issue while generating the hall ticket, please contact the provided helpline number for assistance.
         9638611000
       </p>
+      <p className="mt-4 text-sm text-white text-center px-4">
+        હોલ ટિકિટ જનરેટ કરતી વખતે કોઈપણ પ્રકારની મુશ્કેલી અથવા ત્રુટિ થાય તો કૃપા કરીને નીચે આપેલ હેલ્પલાઇન નંબર પર સંપર્ક કરી સહાય પ્રાપ્ત કરો.
+        હેલ્પલાઇન નંબર: 9638611000
+      </p>
 
     </div>
   );
