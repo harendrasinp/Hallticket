@@ -125,10 +125,10 @@ export default function Home() {
         જો સંપૂર્ણ નામ દાખલ કરવા છતાં હોલ ટિકિટ જનરેટ ન થાય, તો કૃપા કરીને નીચે આપેલ વિકલ્પોમાંથી કોઈ એક રીતથી નામ દાખલ કરીને ફરી પ્રયાસ કરો:
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col items-start">
-            <div>1. HAREN</div>
-            <div>2. HAREN PARMAR</div>
-            <div>3. PARMAR HAREN</div>
-            <div>4. PARMAR HAREN RAJENDRASINH</div>
+            <div>1.HAREN</div>
+            <div>2.HAREN PARMAR</div>
+            <div>3.PARMAR HAREN</div>
+            <div>4.PARMAR HAREN RAJENDRASINH</div>
           </div>
         </div>
       </p>
