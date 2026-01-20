@@ -125,7 +125,7 @@ export default function Home() {
           <div className="flex flex-col items-start">
             {InfoData.Example.map((example, index) => (
               <div key={index} className="text-sm text-white">
-                 {example}
+                 {index+1}.{example}
               </div>
             ))}
           </div>
