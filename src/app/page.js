@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-
+import InfoData from "@/utils/data";
 export default function Home() {
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -114,21 +114,20 @@ export default function Home() {
 
       {/* HELP MESSAGE (OUTSIDE FORM BOX) */}
       <p className="mt-4 text-sm text-white text-center px-4">
-        In case of any issue while generating the hall ticket, please contact the provided helpline number for assistance.
-        9638611000
+        {InfoData.English}
       </p>
       <p className="mt-2 text-sm text-white text-center px-4">
-        હોલ ટિકિટ જનરેટ કરતી વખતે કોઈપણ પ્રકારની મુશ્કેલી અથવા ત્રુટિ થાય તો કૃપા કરીને આપેલ હેલ્પલાઇન નંબર પર સંપર્ક કરી સહાય પ્રાપ્ત કરો.
-        હેલ્પલાઇન નંબર: 9638611000
+        {InfoData.Gujarati}
       </p>
       <p className="mt-2 text-sm text-white text-center px-4">
-        જો સંપૂર્ણ નામ દાખલ કરવા છતાં હોલ ટિકિટ જનરેટ ન થાય, તો કૃપા કરીને નીચે આપેલ વિકલ્પોમાંથી કોઈ એક રીતથી નામ દાખલ કરીને ફરી પ્રયાસ કરો:
+        {InfoData.Ticket}
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col items-start">
-            <div>1.HAREN</div>
-            <div>2.HAREN PARMAR</div>
-            <div>3.PARMAR HAREN</div>
-            <div>4.PARMAR HAREN RAJENDRASINH</div>
+            {InfoData.Example.map((example, index) => (
+              <div key={index} className="text-sm text-white">
+                 {example}
+              </div>
+            ))}
           </div>
         </div>
       </p>
