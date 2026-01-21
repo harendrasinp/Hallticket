@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import InfoData from "../utils/data";
+import InfoData from "@/utils/data";
 
 export default function Home() {
   const [mobile, setMobile] = useState("");
