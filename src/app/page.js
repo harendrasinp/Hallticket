@@ -81,7 +81,7 @@ export default function Home() {
       <div className="w-90 h-auto bg-gray-100 rounded-sm lg:w-125 flex flex-col items-center gap-5 p-5 shadow-lg mt-8">
 
         <span className="text-black font-bold text-2xl">
-          STUDENT DETAIL
+          GENERATE HALL TICKET
         </span>
 
         {/* MOBILE INPUT */}
