@@ -1,107 +1,103 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import InfoData from "@/utils/data";
+
 export default function Home() {
-  const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [students, setStudents] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState(null);
   const [pdfUrl, setPdfUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const generateHallTicket = async () => {
-    if (!fullName || !mobile) {
-      alert("Please enter name and mobile number");
-      return;
-    }
+  /* ===== STEP 1: CHECK MOBILE ===== */
+  const checkMobile = async () => {
+    if (!mobile) return alert("Enter mobile number");
 
     try {
       setLoading(true);
+      const res = await axios.post(
+        "https://hallticketbackend.onrender.com/api/students/get-students-by-mobile",
+        { mobile }
+      );
 
+      if (res.data.count === 1) {
+        generateHallTicket(res.data.students[0].id);
+      } else {
+        setStudents(res.data.students);
+      }
+
+    } catch (err) {
+      alert(err.response?.data?.message || "Server error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* ===== STEP 2: GENERATE PDF ===== */
+  const generateHallTicket = async (studentId) => {
+    try {
+      setLoading(true);
       const res = await axios.post(
         "https://hallticketbackend.onrender.com/api/students/generate-hallticket",
-        { fullName, mobile }
+        { studentId }
       );
 
-      setPdfUrl(
-        `https://hallticketbackend.onrender.com${res.data.pdfUrl}`
-      );
-    } catch (error) {
-      alert(
-        error.response?.data?.message || "Server not responding"
-      );
+      setPdfUrl(`https://hallticketbackend.onrender.com${res.data.pdfUrl}`);
+      setSelectedStudent(studentId);
+    } catch {
+      alert("Failed to generate hall ticket");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="bg-blue-500 w-full h-screen flex flex-col items-center">
+    <div className="min-h-screen bg-blue-500 flex flex-col items-center p-5">
 
-      {/* HEADER */}
-      <div className="w-full h-25 bg-gray-900/25 flex items-center justify-center pt-5">
-        <div>
-          <img src="/logo.png" alt="Logo" className="w-20 h-16 mr-2" />
-        </div>
-        <div>
-          <div className="text-white text-xl">
-            P.P SAVANI VIDHYAMANDIR
-          </div>
-          <div className="text-[0.5rem] text-white">
-            AT POST KATHGADH VYARA, DIST. TAPI
-          </div>
-        </div>
-      </div>
+      <div className="bg-white p-6 rounded w-80 text-center space-y-4">
 
-      {/* FORM BOX */}
-      <div className="w-90 h-80 bg-gray-100 rounded-sm lg:w-125 flex flex-col items-center justify-center gap-5 p-5 shadow-lg mt-8">
-
-        <span className="text-black font-bold text-2xl">
-          STUDENT DETAIL
-        </span>
+        <h2 className="text-xl font-bold">Enter Mobile Number</h2>
 
         <input
-          type="text"
-          placeholder="Enter Full Name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value.toUpperCase())}
-          className="w-56 border border-gray-950 px-2 text-black placeholder-gray-800"
-        />
-
-        <input
-          type="text"
-          placeholder="Enter Register Phone No"
+          className="border w-full p-2"
+          placeholder="Registered Mobile Number"
           value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-          className="w-56 border border-gray-950 px-2 text-black placeholder-gray-800"
+          onChange={e => setMobile(e.target.value)}
         />
 
         <button
-          onClick={generateHallTicket}
+          onClick={checkMobile}
+          className="bg-blue-600 text-white px-4 py-2 w-full"
           disabled={loading}
-          className="bg-blue-500 text-white px-5 py-2 rounded-sm"
         >
-          {loading ? "Generating..." : "Generate Hall Ticket"}
+          {loading ? "Checking..." : "Proceed"}
         </button>
 
-        {pdfUrl && (
-          <div className="flex gap-4">
-            <a
-              href={pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              View PDF
-            </a>
+        {/* ===== MULTIPLE STUDENTS ===== */}
+        {students.length > 0 && (
+          <div className="text-left">
+            <p className="font-semibold mt-3">Select Your Name:</p>
+            {students.map(s => (
+              <button
+                key={s.id}
+                onClick={() => generateHallTicket(s.id)}
+                className="block w-full text-left border px-2 py-1 mt-1 hover:bg-gray-100"
+              >
+                {s.fullName}
+              </button>
+            ))}
+          </div>
+        )}
 
-            <a
-              href={pdfUrl}
-              download
-              className="text-green-600 underline"
-            >
+        {/* ===== PDF OPTIONS ===== */}
+        {pdfUrl && (
+          <div className="flex flex-col gap-2 mt-4">
+            <a href={pdfUrl} target="_blank" className="text-blue-600 underline">
+              View Hall Ticket
+            </a>
+            <a href={pdfUrl} download className="text-green-600 underline">
               Download
             </a>
-
             <button
               onClick={() => window.open(pdfUrl).print()}
               className="text-red-600 underline"
@@ -110,28 +106,8 @@ export default function Home() {
             </button>
           </div>
         )}
+
       </div>
-
-      {/* HELP MESSAGE (OUTSIDE FORM BOX) */}
-      <p className="mt-4 text-sm text-white text-center px-4">
-        {InfoData.English}
-      </p>
-      <p className="mt-2 text-sm text-white text-center px-4">
-        {InfoData.Gujarati}
-      </p>
-      <p className="mt-2 text-sm text-white text-center px-4">
-        {InfoData.Ticket}
-        <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-col items-start">
-            {InfoData.Example.map((example, index) => (
-              <div key={index} className="text-sm text-white">
-                 {index+1}.{example}
-              </div>
-            ))}
-          </div>
-        </div>
-      </p>
-
     </div>
   );
 }
