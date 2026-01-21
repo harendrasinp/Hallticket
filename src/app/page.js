@@ -98,7 +98,7 @@ export default function Home() {
           disabled={loading}
           className="bg-blue-500 text-white px-5 py-2 rounded-sm"
         >
-          {loading ? "Checking..." : "Proceed"}
+          {loading ? "Checking..." : "Generate"}
         </button>
 
         {/* ===== MULTIPLE STUDENTS LIST ===== */}
