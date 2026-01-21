@@ -6,6 +6,7 @@ import InfoData from "@/utils/data";
 export default function Home() {
   const [mobile, setMobile] = useState("");
   const [students, setStudents] = useState([]);
+  const [pdfUrl, setPdfUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   /* ===== STEP 1: CHECK MOBILE ===== */
@@ -18,10 +19,11 @@ export default function Home() {
     try {
       setLoading(true);
       setStudents([]);
+      setPdfUrl("");
 
       const res = await axios.post(
         "https://hallticketbackend.onrender.com/api/students/get-students-by-mobile",
-        { mobile },
+        { mobile }
       );
 
       if (res.data.count === 1) {
@@ -29,7 +31,6 @@ export default function Home() {
       } else {
         setStudents(res.data.students);
       }
-
     } catch (error) {
       alert(error.response?.data?.message || "Server not responding");
     } finally {
@@ -37,7 +38,7 @@ export default function Home() {
     }
   };
 
-  /* ===== STEP 2: GENERATE HALL TICKET (BROWSER ONLY) ===== */
+  /* ===== STEP 2: GENERATE HALL TICKET ===== */
   const generateHallTicket = async (studentId) => {
     try {
       setLoading(true);
@@ -45,20 +46,16 @@ export default function Home() {
       const res = await axios.post(
         "https://hallticketbackend.onrender.com/api/students/generate-hallticket",
         { studentId },
-        { responseType: "blob" } // important for binary PDF
+        { responseType: "blob" }
       );
 
       const pdfBlob = new Blob([res.data], { type: "application/pdf" });
-      const pdfUrl = URL.createObjectURL(pdfBlob);
+      const url = URL.createObjectURL(pdfBlob);
 
-      // Directly open PDF in new tab
-      window.open(pdfUrl);
-
-      // Clear students list so buttons disappear
-      setStudents([]);
+      setPdfUrl(url);              // options ke liye
+      window.open(url, "_blank");  // new tab open
 
     } catch (err) {
-      console.error(err);
       alert("Failed to generate hall ticket");
     } finally {
       setLoading(false);
@@ -66,25 +63,27 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-blue-500 w-full min-h-screen flex flex-col items-center">
+    <div className="bg-blue-500 dark:bg-gray-900 w-full min-h-screen flex flex-col items-center">
 
       {/* ===== HEADER ===== */}
-      <div className="w-full h-25 bg-gray-900/25 flex items-center justify-center pt-5">
+      <div className="w-full h-25 bg-gray-900/40 flex items-center justify-center pt-5">
+        <img src="/logo.png" alt="Logo" className="w-20 h-16 mr-2" />
         <div>
-          <img src="/logo.png" alt="Logo" className="w-20 h-16 mr-2" />
-        </div>
-        <div>
-          <div className="text-white text-xl">P.P SAVANI VIDHYAMANDIR</div>
-          <div className="text-[0.5rem] text-white">
+          <div className="text-white text-xl">
+            P.P SAVANI VIDHYAMANDIR
+          </div>
+          <div className="text-[0.6rem] text-white">
             AT POST KATHGADH VYARA, DIST. TAPI
           </div>
         </div>
       </div>
 
       {/* ===== FORM BOX ===== */}
-      <div className="w-90 h-auto bg-gray-100 rounded-sm lg:w-125 flex flex-col items-center gap-5 p-5 shadow-lg mt-8">
+      <div className="w-90 bg-gray-100 dark:bg-gray-800 rounded-sm lg:w-125 flex flex-col items-center gap-5 p-5 shadow-lg mt-8">
 
-        <span className="text-black font-bold text-2xl">GENERATE HALL TICKET</span>
+        <span className="text-black dark:text-white font-bold text-2xl">
+          GENERATE HALL TICKET
+        </span>
 
         {/* MOBILE INPUT */}
         <input
@@ -92,39 +91,80 @@ export default function Home() {
           placeholder="Enter Register Phone No"
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
-          className="w-56 border border-gray-950 px-2 text-black placeholder-gray-800"
+          className="w-56 border border-gray-900 px-2 py-1 text-black dark:text-white dark:bg-gray-700 placeholder-gray-600 dark:placeholder-gray-300"
         />
 
         <button
           onClick={checkMobile}
           disabled={loading}
-          className="bg-blue-500 text-white px-5 py-2 rounded-sm"
+          className="bg-blue-600 text-white px-5 py-2 rounded-sm"
         >
-          {loading ? "Processing..." : "Generate"}
+          {loading ? "Processing..." : "Submit"}
         </button>
 
         {/* ===== MULTIPLE STUDENTS LIST ===== */}
         {students.length > 0 && (
           <div className="w-full flex flex-col items-center gap-2">
-            <p className="font-semibold text-black">Select Your Name</p>
+            <p className="font-semibold text-black dark:text-white">
+              Select Your Name
+            </p>
 
             {students.map((s, index) => (
               <button
                 key={s.id}
                 onClick={() => generateHallTicket(s.id)}
-                className="w-56 border border-gray-800 text-left px-2 py-1 hover:bg-gray-200"
+                className="w-56 border border-gray-800 dark:border-gray-400 text-left px-2 py-1 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
               >
                 {index + 1}. {s.fullName}
               </button>
             ))}
           </div>
         )}
+
+        {/* ===== PDF OPTIONS ===== */}
+        {pdfUrl && (
+          <div className="flex gap-6 mt-4">
+
+            <a
+              href={pdfUrl}
+              target="_blank"
+              className="text-blue-600 dark:text-blue-400 underline"
+            >
+              View PDF
+            </a>
+
+            <a
+              href={pdfUrl}
+              download
+              className="text-green-600 dark:text-green-400 underline"
+            >
+              Download
+            </a>
+
+            <button
+              onClick={() => {
+                const win = window.open(pdfUrl);
+                win.onload = () => win.print();
+              }}
+              className="text-red-600 dark:text-red-400 underline"
+            >
+              Print
+            </button>
+
+          </div>
+        )}
       </div>
 
-      {/* ===== HELP MESSAGE ===== */}
-      <p className="mt-4 text-sm text-white text-center px-4">{InfoData.English}</p>
-      <p className="mt-2 text-sm text-white text-center px-4">{InfoData.Gujarati}</p>
-      <p className="mt-2 text-sm text-white text-center px-4">{InfoData.Ticket}</p>
+      {/* ===== HELP TEXT ===== */}
+      <p className="mt-4 text-sm text-white text-center px-4">
+        {InfoData.English}
+      </p>
+      <p className="mt-2 text-sm text-white text-center px-4">
+        {InfoData.Gujarati}
+      </p>
+      <p className="mt-2 text-sm text-white text-center px-4">
+        {InfoData.Ticket}
+      </p>
     </div>
   );
 }
