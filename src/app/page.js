@@ -160,17 +160,6 @@ export default function Home() {
       <p className="mt-2 text-sm text-white text-center px-4">
         {InfoData.Ticket}
       </p>
-
-      <div className="flex flex-col items-center mt-1">
-        <div className="flex flex-col items-start">
-          {InfoData.Example.map((example, index) => (
-            <div key={index} className="text-sm text-white">
-              {index + 1}. {example}
-            </div>
-          ))}
-        </div>
-      </div>
-
     </div>
   );
 }
