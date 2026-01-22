@@ -134,11 +134,10 @@ export default function Home() {
                   setSelectedStudentId(s.id);
                   setPdfBlobUrl("");
                 }}
-                className={`w-56 border px-2 py-1 text-left ${
-                  selectedStudentId === s.id
+                className={`w-56 border px-2 py-1 text-left ${selectedStudentId === s.id
                     ? "bg-blue-200 border-blue-600"
                     : "border-gray-800"
-                }`}
+                  }`}
               >
                 {index + 1}. {s.fullName}
               </button>
@@ -183,6 +182,12 @@ export default function Home() {
       <p className="mt-2 text-sm text-white text-center px-4">
         {InfoData.Ticket}
       </p>
+      <footer className="w-full mt-auto bg-gray-900 text-white text-center py-3 text-xs">
+        <p>© 2026 VayuSoftware. All Rights Reserved.</p>
+        <p>
+          Developed by VayuSoftware – Web Development Company | Contact: Harendrasinh (9867775626)
+        </p>
+      </footer>
     </div>
   );
 }
