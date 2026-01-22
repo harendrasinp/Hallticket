@@ -187,7 +187,7 @@ export default function Home() {
         <p>
           Developed by VayuSoftware, Web Development Company 
         </p>
-        <p>Contact: Harendrasinh +91-9867775626</p>
+        <p>Contact: Harendrasinh:+91-9867775626</p>
       </footer>
     </div>
   );
