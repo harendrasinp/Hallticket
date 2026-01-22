@@ -185,8 +185,9 @@ export default function Home() {
       <footer className="w-full mt-auto bg-gray-900/60 text-white text-center py-3 text-xs">
         <p>© 2026 VayuSoftware.</p>
         <p>
-          Developed by VayuSoftware Web Development Company | Contact: Harendrasinh (9867775626)
+          Developed by VayuSoftware, Web Development Company 
         </p>
+        <p>Contact: Harendrasinh +91-9867775626</p>
       </footer>
     </div>
   );
